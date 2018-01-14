@@ -1,7 +1,11 @@
 {
   "name": "tebros/laravel-email-confirmation",
   "description": "Email confirmation integration for the Laravel framework.",
-  "keywords": ["laravel", "email", "confirmation"],
+  "keywords": [
+    "laravel",
+    "email",
+    "confirmation"
+  ],
   "homepage": "https://github.com/Tebros/laravel-email-confirmation",
   "authors": [
     {
@@ -17,6 +21,15 @@
     "php": ">=7.0.0"
   },
   "autoload": {
-    "psr-4": {"Tebros\\EmailConfirmation\\": "src/"}
+    "psr-4": {
+      "Tebros\\EmailConfirmation\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Tebros\\EmailConfirmation\\ServiceProvider"
+      ]
+    }
   }
 }
