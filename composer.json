@@ -28,7 +28,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Tebros\\EmailConfirmation\\EmailConfirmationServiceProvider"
+        "Tebros\\EmailConfirmation\\ServiceProvider"
       ]
     }
   }
