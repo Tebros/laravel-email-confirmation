@@ -1,2 +1,5 @@
 # PhpStorm Project Folder
 .idea/
+
+# Composer Dependencies
+vendor/
