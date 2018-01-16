@@ -4,7 +4,9 @@ namespace Tebros\EmailConfirmation;
 
 use App\User;
 use App\UserConfirmation;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 trait ConfirmsUsers
 {
@@ -58,7 +60,7 @@ trait ConfirmsUsers
         $user = UserConfirmation::where('email', $request->get('email'))->first();
         if(!isset($user)){
             $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'Could not a user for the given email!'); //TODO translate
+            $request->session()->flash('status', 'Could not find a user for the given email!'); //TODO translate
             return false;
         }
 
