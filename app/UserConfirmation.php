@@ -15,7 +15,7 @@ class UserConfirmation extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'token'
+        'name', 'email', 'password'
     ];
 
     /**
