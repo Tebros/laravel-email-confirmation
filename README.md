@@ -70,6 +70,17 @@ composer remove tebros/laravel-email-confirmation
 After that you should remove the following two lines in your `routes/web.php` file.
 
 ```php
-// Register routes for email confirmation. Die uri is "/confirm"
+// Register routes for email confirmation. The uri is "/confirm"
 Tebros\EmailConfirmation\Utils::routes();
 ```
+
+### License ###
+
+This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+[ico-version]: https://img.shields.io/packagist/v/tebros/laravel-email-confirmation.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/tebros/laravel-email-confirmation.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/tebros/laravel-email-confirmation
+[link-downloads]: https://packagist.org/packages/tebros/laravel-email-confirmation

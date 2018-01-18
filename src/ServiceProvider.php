@@ -54,7 +54,7 @@ class ServiceProvider extends LaravelServiceProvider
         //TODO move it to an new artisan command
 
         $path = base_path('routes/').'web.php';
-        $find = '// Register routes for email confirmation. Die uri is "/confirm"'."\n".'Tebros\EmailConfirmation\Utils::routes();';
+        $find = '// Register routes for email confirmation. The uri is "/confirm"'."\n".'Tebros\EmailConfirmation\Utils::routes();';
         $content = file_get_contents($path);
         if(strpos($content, $find)===false){
             $content.="\n\n".$find."\n";
