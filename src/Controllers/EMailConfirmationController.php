@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Tebros\EmailConfirmation\Controllers;
 
-use Tebros\EmailConfirmation\ConfirmsUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Tebros\EmailConfirmation\Traits\ConfirmsUsers;
 
 class EMailConfirmationController extends Controller
 {

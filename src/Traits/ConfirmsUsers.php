@@ -1,12 +1,12 @@
 <?php
 
-namespace Tebros\EmailConfirmation;
+namespace Tebros\EmailConfirmation\Traits;
 
 use App\User;
-use App\UserConfirmation;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Tebros\EmailConfirmation\Models\UserConfirmation;
 
 trait ConfirmsUsers
 {

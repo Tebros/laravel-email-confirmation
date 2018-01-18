@@ -17,13 +17,13 @@ class ServiceProvider extends LaravelServiceProvider
         $parentdir = __DIR__.'/../';
 
 
-        //type: php artisan vendor:publish --tag=emailconfirmation-config
+        //publish: php artisan vendor:publish --tag=emailconfirmation-config
         $this->publishes([
             $parentdir.'config/emailconfirmation.php' => config_path('emailconfirmation.php'),
         ], 'emailconfirmation-config');
 
 
-        $this->loadRoutesFrom($parentdir.'routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
 
 
         //migration runs automatically -> dont need to export or move files
@@ -32,30 +32,20 @@ class ServiceProvider extends LaravelServiceProvider
 
 
         //trans('package::file.line');
+        //publish: php artisan vendor:publish --tag=emailconfirmation-translation
         $this->loadTranslationsFrom($parentdir.'resources/lang', 'emailconfirmation');
-        //type: php artisan vendor:publish --tag=emailconfirmation-translation
         $this->publishes([
             $parentdir.'resources/lang' => resource_path('lang/vendor/emailconfirmation'),
         ], 'emailconfirmation-translation');
 
 
         //referenc is view('package::view')
+        //publish: php artisan vendor:publish --tag=emailconfirmation-views
         $this->loadViewsFrom($parentdir.'resources/views', 'emailconfirmation');
-        //type: php artisan vendor:publish --tag=emailconfirmation-views
         $this->publishes([
             $parentdir.'resources/views' => resource_path('views/vendor/emailconfirmation'),
         ], 'emailconfirmation-views');
 
-
-        //type: php artisan vendor:publish --tag=emailconfirmation-models
-        $this->publishes([
-            $parentdir.'app' => app_path(''),
-        ], 'emailconfirmation-models');
-
-        //type: php artisan vendor:publish --tag=emailconfirmation-controllers
-        $this->publishes([
-            $parentdir.'app/Http/Controllers' => app_path('Http/Controllers'),
-        ], 'emailconfirmation-controllers');
     }
 
     /**
@@ -65,6 +55,7 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        //
+        //register controller
+        $this->app->make('Tebros\EmailConfirmation\Models\EMailConfirmationController');
     }
 }

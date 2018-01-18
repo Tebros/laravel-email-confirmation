@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Tebros\EmailConfirmation\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
