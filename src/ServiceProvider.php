@@ -29,9 +29,6 @@ class ServiceProvider extends LaravelServiceProvider
             require __DIR__.'/Routes/web.php';
         });
 
-        $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
-
-
         //migration runs automatically -> dont need to export or move files
         //type: php artisan migrate
         $this->loadMigrationsFrom($parentdir.'database/migrations');
@@ -61,6 +58,14 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        //
+        //TODO move it to an new artisan command
+
+        $path = base_path('routes/').'web.php';
+        $find = '// Register routes for email confirmation. Die uri is "/confirm"'."\n".'Tebros\EmailConfirmation\Utils::routes();';
+        $content = file_get_contents($path);
+        if(strpos($content, $find)===false){
+            $content.="\n\n".$find."\n";
+            file_put_contents($path, $content);
+        }
     }
 }
