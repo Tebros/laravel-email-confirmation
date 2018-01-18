@@ -16,18 +16,11 @@ class ServiceProvider extends LaravelServiceProvider
         //dir of package
         $parentdir = __DIR__.'/../';
 
-
         //publish: php artisan vendor:publish --tag=emailconfirmation-config
         $this->publishes([
             $parentdir.'config/emailconfirmation.php' => config_path('emailconfirmation.php'),
         ], 'emailconfirmation-config');
 
-
-        $this->app->router->group([
-            'namespace' => 'Tebros\EmailConfirmation\Controllers'
-        ], function(){
-            require __DIR__.'/Routes/web.php';
-        });
 
         //migration runs automatically -> dont need to export or move files
         //type: php artisan migrate
