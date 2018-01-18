@@ -23,6 +23,12 @@ class ServiceProvider extends LaravelServiceProvider
         ], 'emailconfirmation-config');
 
 
+        $this->app->router->group([
+            'namespace' => 'Tebros\EmailConfirmation\Controllers'
+        ], function(){
+            require __DIR__.'/Routes/web.php';
+        });
+
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
 
 
@@ -55,7 +61,6 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        //register controller
-        $this->app->make('Tebros\EmailConfirmation\Models\EMailConfirmationController');
+        //
     }
 }
