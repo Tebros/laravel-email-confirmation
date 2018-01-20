@@ -46,6 +46,17 @@ To hook into the default Laravel authentification prozess, you need to change th
 use \Tebros\EmailConfirmation\Traits\RegistersUsers; //use this trait instead of the default
 ``` 
 
+Edit the `app/Http/Controllers/Auth/LoginController.php` file.
+
+It is required to display correct a message if the account is not confirmed.
+
+```php
+//comment out the line like this or just override it
+//use AuthenticatesUsers;
+
+use \Tebros\EmailConfirmation\Traits\AuthenticatesUsers; //use this trait instead of the default
+``` 
+
 Make sure your `config/mail.php` file contains these important settings:
 - MAIL_DRIVER
 - MAIL_HOST
@@ -54,9 +65,32 @@ Make sure your `config/mail.php` file contains these important settings:
 - MAIL_FROM_ADDRESS, MAIL_FROM_NAME
 
 Moreover, make sure your `config/app.php` file contains these important settings:
+- APP_NAME
 - APP_URL
 
 ### Configuration and Publishing ###
+
+After the installation you can make use of the `confirm` route name to link the `Resend Confirmation E-Mail` site.
+
+**Important!** You should edit your `auth/login.blade.php` view and add this link to request a new confirmation email!
+
+```php
+<div class="form-group">
+    <div class="col-md-8 col-md-offset-4">
+        <button type="submit" class="btn btn-primary">
+            Login
+        </button>
+
+        <a class="btn btn-link" href="{{ route('password.request') }}">
+            Forgot Your Password?
+        </a>
+
+        <a class="btn btn-link" href="{{ route('confirm') }}">
+            Resend Confirmation Link?
+        </a>
+    </div>
+</div>
+```
 
 If you want to configure the email confirmation, run the following command.
 
@@ -96,6 +130,25 @@ After that you should remove the following two lines in your `routes/web.php` fi
 // Register routes for email confirmation. The uri is "/confirm"
 Tebros\EmailConfirmation\Utils::routes();
 ```
+
+Edit the `app/Http/Controllers/Auth/RegisterController.php` file and 
+the `app/Http/Controllers/Auth/LoginController.php` file to remove the Laravel hook.
+
+```php
+//remove the comment that the orifinal trait is used
+use RegistersUsers;
+
+//remove the whole line or comment it out
+//use \Tebros\EmailConfirmation\Traits\RegistersUsers; 
+``` 
+
+```php
+//remove the comment that the orifinal trait is used
+use AuthenticatesUsers;
+
+//remove the whole line or comment it out
+//use \Tebros\EmailConfirmation\Traits\AuthenticatesUsers; 
+``` 
 
 ### License ###
 

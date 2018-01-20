@@ -37,7 +37,7 @@ class EMailConfirmationController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => 'required|string|email|max:255|exists:users_confirmation,email',
+            'email' => 'required|string|email|max:255|exists:email_confirmation,email',
         ]);
     }
 }

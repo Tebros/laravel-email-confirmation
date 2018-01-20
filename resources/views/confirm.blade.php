@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        <form class="form-horizontal" method="POST" action="{{ route('confirm') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('confirm.request') }}">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

@@ -11,8 +11,8 @@ class Utils
      */
     public static function routes(){
         $controller = '\Tebros\EmailConfirmation\Controllers\EMailConfirmationController';
-        Route::get('confirm', $controller.'@showConfirmationForm')->name('confirm.request');
-        Route::post('confirm', $controller.'@requestToken');
+        Route::get('confirm', $controller.'@showConfirmationForm')->name('confirm');
+        Route::post('confirm', $controller.'@requestToken')->name('confirm.request');
         Route::get('confirm/{token}', $controller.'@confirm')->name('confirm.attempt');
     }
 

@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers as LaravelRegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Tebros\EmailConfirmation\Models\EMailConfirmation;
 use Tebros\EmailConfirmation\Notifications\ConfirmEMail;
 use Tebros\EmailConfirmation\Utils;
@@ -38,9 +39,16 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-
         $data = $request->all();
+
+        $this->validator($data)->validate();
+
+        Validator::make($data, [
+            'email' => 'unique:email_confirmation,email'
+        ], [
+            'unique' => 'The :attribute has already been taken.' //TODO translate
+        ])->validate();
+
         $user = EMailConfirmation::create([
             'name' => $data['name'],
             'email' => $data['email'],
