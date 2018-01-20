@@ -2,11 +2,14 @@
 
 namespace Tebros\EmailConfirmation\Traits;
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\User;
+use Exception;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Tebros\EmailConfirmation\Models\UserConfirmation;
+use Tebros\EmailConfirmation\Models\EMailConfirmation;
+use Tebros\EmailConfirmation\Notifications\ConfirmEMail;
+use Tebros\EmailConfirmation\Utils;
 
 trait ConfirmsUsers
 {
@@ -43,9 +46,22 @@ trait ConfirmsUsers
      * @param  mixed  $token
      * @return \Illuminate\Http\Response
      */
-    public function confirm(Request $request, $token)
+    public function confirm(Request $request, $token, RegisterController $registerController)
     {
-        return $this->doConfirmation($request, $token)?$this->showSuccessForm():$this->showConfirmationForm();
+        if(doConfirmation($request, $token)){
+            if(method_exists($registerController, 'confirmed')){
+                $registerController->confirmed();
+            }else{
+                throw new Exception(
+                    'Method "confirmed" could not be found in class "'
+                    .RegisterController::class.
+                    '". Please make sure you replaced "use RegistersUsers;" with "use Tebros\EmailConfirmation\Traits\RegistersUsers;" !'
+                );
+            }
+            return Utils::showStatusForm('Account Confirmed', route('login'), 'Continue Login'); //TODO translate
+        }
+
+        return $this->showConfirmationForm();
     }
 
     /**
@@ -57,26 +73,23 @@ trait ConfirmsUsers
     private function sendToken(Request $request)
     {
         //validate and get user
-        $user = UserConfirmation::where('email', $request->get('email'))->first();
+        $user = EMailConfirmation::where('email', $request->get('email'))->first();
         if(!isset($user)){
             $request->session()->flash('status_type', 'danger');
             $request->session()->flash('status', 'Could not find a user for the given email!'); //TODO translate
             return false;
         }
 
-        //create a new token
-        $token = $this->generateToken($user->email);
-
-        //update database
-        $user->token = $token;
+        //create a new token and update database
+        $user->token = Utils::generateToken($user->email);
         if(!$user->save()){
             $request->session()->flash('status_type', 'danger');
             $request->session()->flash('status', 'An unexpected error occurred!'); //TODO translate
             return false;
         }
 
-        //TODO Send Mail with new token
-        dd($token);
+        //send Mail with new token
+        $user->notify(new ConfirmEMail($user));
 
         $request->session()->flash('status_type', 'success');
         $request->session()->flash('status', 'Confirmation E-Mail sent successfully.'); //TODO translate
@@ -101,24 +114,27 @@ trait ConfirmsUsers
         }
 
         //get user by token
-        $user = UserConfirmation::where('token', $token)->first();
+        $user = EMailConfirmation::where('token', $token)->first();
         if(!isset($user)){
             $request->session()->flash('status_type', 'danger');
             $request->session()->flash('status', 'Could not find a user for the given token!'); //TODO translate
             return false;
         }
 
-        //write User into database
-        $newuser = User::create([
+        //check if user already exists
+        $tmp = User::where('email', $user->email)->first();
+        if(isset($tmp)){
+            $request->session()->flash('status_type', 'danger');
+            $request->session()->flash('status', 'An unexpected error occurred! The user is already confirmed.'); //TODO translate
+            return false;
+        }
+
+        //write user into database
+        User::create([
             'name' => $user->name,
             'email' => $user->email,
             'password' => $user->password
         ]);
-        if(!$newuser->save()){
-            $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'An unexpected error occurred!'); //TODO translate
-            return false;
-        }
 
         //remove user from database
         if(!$user->forceDelete()){
@@ -131,27 +147,5 @@ trait ConfirmsUsers
         $request->session()->flash('status', 'Your account has been confirmed successfully.'); //TODO translate
         return true;
     }
-
-    /**
-     * Show the success message of the confirmation
-     *
-     * @return \Illuminate\Http\Response
-     */
-    private function showSuccessForm()
-    {
-        return view('emailconfirmation::success');
-    }
-
-    /**
-     * Generate a unique token
-     *
-     * @param  mixed  $identifier
-     * @return mixed
-     */
-    private function generateToken($identifier)
-    {
-        return str_slug(Hash::make($identifier).Hash::make(str_random(80)));
-    }
-
 
 }

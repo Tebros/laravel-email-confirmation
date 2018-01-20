@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersConfirmationTable extends Migration
+class CreateEMailConfirmationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateUsersConfirmationTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_confirmation', function (Blueprint $table) {
+        Schema::create('email_confirmation', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('token')->nullable()->default(null)->unique();
+            $table->string('token')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateUsersConfirmationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_confirmation');
+        Schema::dropIfExists('email_confirmation');
     }
 }

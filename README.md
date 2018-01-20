@@ -13,7 +13,8 @@ It is has been developed and tested for Laravel 5.5 but it should also work with
 Make use of composer to require this package. 
 
 The installation appends a function call in the `routes/web.php` file automatically. 
-Please do **not** comment it out!
+Please do **not** comment it out!anpassung
+                                 editierung
 
 ```bash
 composer require tebros/laravel-email-confirmation
@@ -29,9 +30,29 @@ php artisan make:auth
 
 Make a migration to create the needed table `users_confirmation`.
 
-```bash
+```bashneed to
 php artisan migrate
 ```
+
+Edit the `app/Http/Controllers/Auth/RegisterController.php` file.
+
+The editing is quite simple. 
+To hook into the default Laravel authentification prozess, you need to change the `RegistersUsers` trait at the top.
+
+```php
+<strike>use RegistersUsers;</strike> //comment this line out or just override it
+use Tebros\EmailConfirmation\Traits\RegistersUsers; //use this trait instead of the default
+``` 
+
+Make sure your `config/mail.php` file contains these important settings:
+- MAIL_DRIVER
+- MAIL_HOST
+- MAIL_PORT
+- MAIL_USERNAME, MAIL_PASSWORD
+- MAIL_FROM_ADDRESS, MAIL_FROM_NAME
+
+Moreover, make sure your `config/app.php` file contains these important settings:
+- APP_URL
 
 ### Configuration and Publishing ###
 

@@ -3,11 +3,19 @@
 namespace Tebros\EmailConfirmation\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class UserConfirmation extends Model
+class EMailConfirmation extends Model
 {
-    protected $table = 'users_confirmation';
 
+    use Notifiable;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'email_confirmation';
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +23,7 @@ class UserConfirmation extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password', 'token',
     ];
 
     /**
