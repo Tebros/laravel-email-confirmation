@@ -40,7 +40,9 @@ The editing is quite simple.
 To hook into the default Laravel authentification prozess, you need to change the `RegistersUsers` trait at the top.
 
 ```php
-<strike>use RegistersUsers;</strike> //comment this line out or just override it
+//comment out the line like this or just override it
+//use RegistersUsers;
+
 use Tebros\EmailConfirmation\Traits\RegistersUsers; //use this trait instead of the default
 ``` 
 
