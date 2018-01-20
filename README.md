@@ -43,7 +43,7 @@ To hook into the default Laravel authentification prozess, you need to change th
 //comment out the line like this or just override it
 //use RegistersUsers;
 
-use Tebros\EmailConfirmation\Traits\RegistersUsers; //use this trait instead of the default
+use \Tebros\EmailConfirmation\Traits\RegistersUsers; //use this trait instead of the default
 ``` 
 
 Make sure your `config/mail.php` file contains these important settings:
