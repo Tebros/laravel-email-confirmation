@@ -48,9 +48,11 @@ trait ConfirmsUsers
      */
     public function confirm(Request $request, $token, RegisterController $registerController)
     {
-        if(doConfirmation($request, $token)){
+        $user = $this->doConfirmation($request, $token);
+
+        if(isset($user)){
             if(method_exists($registerController, 'confirmed')){
-                $registerController->confirmed();
+                $registerController->confirmed($request, $user);
             }else{
                 throw new Exception(
                     'Method "confirmed" could not be found in class "'
@@ -101,16 +103,15 @@ trait ConfirmsUsers
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  mixed  $token
-     * @return bool
+     * @return User
      */
     private function doConfirmation(Request $request, $token)
     {
-
         //validate token
         if(empty($token)){
             $request->session()->flash('status_type', 'danger');
             $request->session()->flash('status', 'This is no valid link!'); //TODO translate
-            return false;
+            return null;
         }
 
         //get user by token
@@ -118,7 +119,7 @@ trait ConfirmsUsers
         if(!isset($user)){
             $request->session()->flash('status_type', 'danger');
             $request->session()->flash('status', 'Could not find a user for the given token!'); //TODO translate
-            return false;
+            return null;
         }
 
         //check if user already exists
@@ -126,11 +127,11 @@ trait ConfirmsUsers
         if(isset($tmp)){
             $request->session()->flash('status_type', 'danger');
             $request->session()->flash('status', 'An unexpected error occurred! The user is already confirmed.'); //TODO translate
-            return false;
+            return null;
         }
 
         //write user into database
-        User::create([
+        $newuser = User::create([
             'name' => $user->name,
             'email' => $user->email,
             'password' => $user->password
@@ -140,12 +141,12 @@ trait ConfirmsUsers
         if(!$user->forceDelete()){
             $request->session()->flash('status_type', 'danger');
             $request->session()->flash('status', 'Your account has been confirmed but an unexpected error occurred! Please confirm your account a second time!'); //TODO translate
-            return true;
+            return $newuser;
         }
 
         $request->session()->flash('status_type', 'success');
         $request->session()->flash('status', 'Your account has been confirmed successfully.'); //TODO translate
-        return true;
+        return $newuser;
     }
 
 }

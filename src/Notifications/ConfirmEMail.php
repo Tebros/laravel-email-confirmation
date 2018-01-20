@@ -53,7 +53,7 @@ class ConfirmEMail extends Notification
                     ->greeting('Hello '.$this->user->name.'!')
                     ->subject('Confirm E-Mail')
                     ->line('You are receiving this email because your account, based on this email adress, needs a confirmation.')
-                    ->action('Confirm Account', url(config('app.url').route('confirm.attempt', $this->user->token)))
+                    ->action('Confirm Account', url(config('app.url').route('confirm.attempt', $this->user->token, false)))
                     ->line('If you did not request a confirmation link, no further action is required.');
     }
 

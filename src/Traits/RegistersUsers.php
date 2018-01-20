@@ -41,7 +41,7 @@ trait RegistersUsers
         $this->validator($request->all())->validate();
 
         $data = $request->all();
-        $user = EMailConfirmation::created([
+        $user = EMailConfirmation::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -52,9 +52,9 @@ trait RegistersUsers
         $user->notify(new ConfirmEMail($user));
 
         $request->session()->flash('status_type', 'success');
-        $request->session()->flash('status', 'Confirmation E-Mail sent successfully.'); //TODO translate
+        $request->session()->flash('status', 'Confirmation E-Mail sent successfully. Please check your mails.'); //TODO translate
 
-        return Utils::showStatusForm('', route('login'));
+        return Utils::showStatusForm('Registered', route('login'), 'Continue Login'); //TODO translate
     }
 
 }
