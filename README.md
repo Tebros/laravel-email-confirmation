@@ -118,13 +118,7 @@ php artisan vendor:publish --tag=emailconfirmation-views
 
 ### Uninstallation ###
 
-This is very simple. Just type the following command.
-
-```bash
-composer remove tebros/laravel-email-confirmation
-```
-
-After that you should remove the following two lines in your `routes/web.php` file.
+You should remove the following two lines in your `routes/web.php` file.
 
 ```php
 // Register routes for email confirmation. The uri is "/confirm"
@@ -149,6 +143,12 @@ use AuthenticatesUsers;
 //remove the whole line or comment it out
 //use \Tebros\EmailConfirmation\Traits\AuthenticatesUsers; 
 ``` 
+
+Now just type the following command.
+
+```bash
+composer remove tebros/laravel-email-confirmation
+```
 
 ### License ###
 
