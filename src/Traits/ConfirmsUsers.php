@@ -60,7 +60,7 @@ trait ConfirmsUsers
                     '". Please make sure you replaced "use RegistersUsers;" with "use Tebros\EmailConfirmation\Traits\RegistersUsers;" !'
                 );
             }
-            return Utils::showStatusForm('Account Confirmed', route('login'), trans('emailconfirmation::emailconfirmation.button_login'));
+            return Utils::showStatusForm(trans('emailconfirmation::emailconfirmation.view_status_confirmed'), route('login'), trans('emailconfirmation::emailconfirmation.button_login'));
         }
 
         return $this->showConfirmationForm();

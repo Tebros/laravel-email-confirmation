@@ -16,12 +16,14 @@ class ServiceProvider extends LaravelServiceProvider
         //dir of package
         $parentdir = __DIR__.'/../';
 
+
         //publish: php artisan vendor:publish --tag=emailconfirmation-config
         $this->publishes([
             $parentdir.'config/emailconfirmation.php' => config_path('emailconfirmation.php'),
         ], 'emailconfirmation-config');
         $this->mergeConfigFrom($parentdir.'config/emailconfirmation.php', 'emailconfirmation');
 
+        
         //migration runs automatically -> dont need to export or move files
         //type: php artisan migrate
         $this->loadMigrationsFrom($parentdir.'database/migrations');

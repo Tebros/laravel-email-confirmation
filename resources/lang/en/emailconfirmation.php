@@ -13,6 +13,15 @@ return [
     |
     */
 
+    // text in the 'Resend Confirmation E-Mail' view
+    'view_request_title' => 'Resend Confirmation E-Mail',
+    'view_request_email' => 'E-Mail Address',
+    'view_request_submit' => 'Send Confirmation Link',
+
+    // titles of the status message view
+    'view_status_registered' => 'Registered',
+    'view_status_confirmed' => 'Account Confirmed',
+
     // messages for the confirmation email
     // you can use the attribute :name everywhere you like
     'mail_greeting' => 'Hello :name!',

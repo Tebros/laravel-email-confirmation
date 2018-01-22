@@ -15,6 +15,15 @@ return [
     |
     */
 
+    // Texte im view 'Bestätigungslink anfordern'
+    'view_request_title' => 'Bestätigungslink anfordern',
+    'view_request_email' => 'E-Mail Adresse',
+    'view_request_submit' => 'Bestätigungslink anfordern',
+
+    // Überschriften für die view für Statusnachrichten
+    'view_status_registered' => 'Registriert',
+    'view_status_confirmed' => 'Account bestätigt',
+
     // Nachrichten in der Bestätigungsemail
     // Das Attribut :name kann hier überall verwendet werden
     'mail_greeting' => 'Hallo :name!',

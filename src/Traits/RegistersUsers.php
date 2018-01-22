@@ -62,7 +62,7 @@ trait RegistersUsers
         $request->session()->flash('status_type', 'success');
         $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.registered'));
 
-        return Utils::showStatusForm('Registered', route('login'), trans('emailconfirmation::emailconfirmation.button_login'));
+        return Utils::showStatusForm(trans('emailconfirmation::emailconfirmation.view_status_registered'), route('login'), trans('emailconfirmation::emailconfirmation.button_login'));
     }
 
 }
