@@ -52,7 +52,7 @@ return [
     // the account is confirmed but there went something wrong in the 'email_confirmation' database
     'confirmed_with_error' => 'Your account has been confirmed but an unexpected error occurred! Please confirm your account a second time!',
 
-    // the account is not confirmed
+    // the account is now confirmed
     'confirmed' => 'Your account has been confirmed successfully.',
 
 ];

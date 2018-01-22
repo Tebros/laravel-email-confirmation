@@ -4,55 +4,59 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | EMailConfirmation Language Lines
+    | EMailConfirmation Sprachzeilen
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used during email confirmation for
-    | various messages that we need to display to the user. You are free to
-    | modify these language lines according to your application's requirements.
+    | Die folgenden Zeilen werden im Rahmen der E-Mail-Bestätigung verwendet.
+    | Sie werden dem Benutzer teilweise als Statusnachricht auf der Webseite
+    | oder als Text in der Bestätigungsemail angezeigt.
+    |
+    | Die Texte können je nach Anforderung beliebig angepasst werden.
     |
     */
 
-    // messages for the confirmation email
-    // you can use the attribute :name everywhere you like
-    'mail_greeting' => 'Hello :name!',
-    'mail_subject' => 'Confirm E-Mail',
+    // Nachrichten in der Bestätigungsemail
+    // Das Attribut :name kann hier überall verwendet werden
+    'mail_greeting' => 'Hallo :name!',
+    'mail_subject' => 'Bestätigung der E-Mail',
     'mail_introLines' => [
-        'You are receiving this email because your account, based on this email adress, needs a confirmation.',
+        'Du hast diese E-Mail erhalten, weil du dir einen Account auf unserer Webseite erstellt hast oder einen neuen Bestätigungslink angefordert hast.',
+        'Damit du dich mit deinem Account einloggen kannst, musst du diese E-Mail bestätigen.',
     ],
-    'mail_button_text' => 'Confirm Account',
+    'mail_button_text' => 'Bestätige Account',
     'mail_outroLines' => [
-        'If you did not request a confirmation link, no further action is required.',
+        'Solltest du keinen Bestätigungslink angefordert haben, kannst du diese E-Mail ignorieren.',
     ],
 
-    // a user wants to login but the account is not confirmed
-    'account_not_confirmed' => 'Please confirm your email adress to login!',
+    // ein User möchte sich anmelden, jedoch ist sein Account noch nicht bestätigt
+    'account_not_confirmed' => 'Bitte bestätige deine E-Mail Adresse, damit du dich anmelden kannst!',
 
-    // someone wants to register but the email has already been taken
-    'email_taken' => 'The :attribute has already been taken.',
+    // bei einer Registrierung wird eine bereits verwendete E-Mail angegeben
+    'email_taken' => 'Diese E-Mail Adresse ist bereits vergeben!',
 
-    // registration finished and confirmation mail sended
-    'registered' => 'Confirmation E-Mail sent successfully. Please check your mails.',
+    // Registrierung abgeschlossen und Bestätigungsmail versendet
+    'registered' => 'Registrierung erfolgreich abgeschlossen. Bitte prüfe deine E-Mails, um deinen Account zu bestätigen.',
 
-    // button text to go to the login page
-    'button_login' => 'Continue Login',
+    // button text um auf die Anmeldeseite zu gelangen
+    'button_login' => 'Zum Login',
 
-    // request a new confirmation token but email does not exists
-    'email_unknown' => 'Could not find a user for the given email!',
+    // bei dem Versuch einen neuen Bestätigungslink anzufordern, wurde eine unbekannte E-Mail angegeben
+    'email_unknown' => 'Es konnte kein Account zu dieser E-Mail gefunden werden!',
 
-    // an unexpected error occurred
-    'unexpected_error' => 'An unexpected error occurred!',
+    // ein unerwarteter Fehler ist aufgetreten
+    'unexpected_error' => 'Ein unerwarteter Fehler ist aufgetreten!',
 
-    // a new confirmation token was requested and the mail was send successfully
-    'new_token_send' => 'Confirmation E-Mail sent successfully.',
+    // ein neuer Bestätigungslink wurde angefordert und die E-Mail erfolgreich versendet
+    'new_token_send' => 'Die E-Mail zur Bestätigung wurde erfolgreich versendet.',
 
-    // someone wants to confirm an account with an invalid token
-    'invalid_link' => 'This is an invalid link!',
+    // jemand versucht einen Account mit einem ungültigen Link zu bestätigen
+    'invalid_link' => 'Dieser Bestätigungslink ist ungültig!',
 
-    // the account is confirmed but there went something wrong in the 'email_confirmation' database
-    'confirmed_with_error' => 'Your account has been confirmed but an unexpected error occurred! Please confirm your account a second time!',
+    // der Account wurde bestätigt, allerdings ist ein Fehler in der 'email_confirmation' Datenbank aufgetreten
+    // der User sollte seinen bereits bestätigten Account noch einmal bestätigen. So kann der Fehler behoben werden
+    'confirmed_with_error' => 'Dein Account wurde erfolgreich bestätigt. Jedoch ist ein Fehler aufgetreten! Bitte bestätige deshalb deinen Account erneut!',
 
-    // the account is not confirmed
-    'confirmed' => 'Your account has been confirmed successfully.',
+    // der Account wurde erfolgreich bestätigt
+    'confirmed' => 'Dein Account wurde erfolgreich bestätigt.',
 
 ];
