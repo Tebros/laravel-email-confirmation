@@ -66,6 +66,8 @@ class ConfirmEMail extends Notification
             $mail->line(str_replace(':name', $name, $line));
         }
 
+        $mail->salutation(trans('emailconfirmation::emailconfirmation.mail_salutation'));
+
         return $mail;
     }
 

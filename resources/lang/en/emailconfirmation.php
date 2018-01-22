@@ -33,6 +33,7 @@ return [
     'mail_outroLines' => [
         'If you did not request a confirmation link, no further action is required.',
     ],
+    'mail_salutation' => 'Regards, '.config('app.name'),
 
     // a user wants to login but the account is not confirmed
     'account_not_confirmed' => 'Please confirm your email adress to login!',

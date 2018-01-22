@@ -36,6 +36,7 @@ return [
     'mail_outroLines' => [
         'Solltest du keinen Bestätigungslink angefordert haben, kannst du diese E-Mail ignorieren.',
     ],
+    'mail_salutation' => 'Mit freundlichen Grüßen, '.config('app.name'),
 
     // ein User möchte sich anmelden, jedoch ist sein Account noch nicht bestätigt
     'account_not_confirmed' => 'Bitte bestätige deine E-Mail Adresse, damit du dich anmelden kannst!',
