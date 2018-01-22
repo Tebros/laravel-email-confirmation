@@ -4,32 +4,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Lorem ipsum dolor sit amet
+    | E-Mail Template
     |--------------------------------------------------------------------------
     |
-    | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-    | nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-    | erat, sed diam voluptua.
+    | Here you can set the template to render for the confirmation email.
+    |
+    | You can use the following variables in your *.blade.php file:
+    | $greeting, $level, $introLines, $actionText, $actionUrl,
+    | $outroLines, $salutation
     |
     */
 
-    'lorem' => env('', ''),
+    'template' => 'notifications::email',
 
     /*
     |--------------------------------------------------------------------------
-    | Lorem ipsum dolor sit amet
+    | E-Mail Level
     |--------------------------------------------------------------------------
     |
-    | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-    | nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-    | erat, sed diam voluptua.
+    | Here you can set the level of the confirmation email.
+    |
+    | success (by default this level has a green button)
+    | error   (by default this level has a red button)
+    | default (by default this level has a blue button)
     |
     */
 
-    'ipsum' => [
-
-
-
-    ],
+    'level' => 'default',
 
 ];

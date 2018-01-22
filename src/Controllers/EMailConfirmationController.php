@@ -12,13 +12,6 @@ class EMailConfirmationController extends Controller
     use ConfirmsUsers;
 
     /**
-     * Where to redirect users after that.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/login'; //TODO do i need this? for the middleware?
-
-    /**
      * Create a new controller instance.
      *
      * @return void

@@ -5,6 +5,7 @@ namespace Tebros\EmailConfirmation\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Mail;
 use Tebros\EmailConfirmation\Models\EMailConfirmation;
 
 class ConfirmEMail extends Notification
@@ -47,14 +48,25 @@ class ConfirmEMail extends Notification
      */
     public function toMail($notifiable)
     {
-        //TODO add custom template support
-        //TODO translate
-        return (new MailMessage)
-                    ->greeting('Hello '.$this->user->name.'!')
-                    ->subject('Confirm E-Mail')
-                    ->line('You are receiving this email because your account, based on this email adress, needs a confirmation.')
-                    ->action('Confirm Account', url(config('app.url').route('confirm.attempt', $this->user->token, false)))
-                    ->line('If you did not request a confirmation link, no further action is required.');
+        $name = $this->user->name;
+
+        $mail = new MailMessage;
+        $mail   ->template(config('emailconfirmation.template'))
+                ->level(config('emailconfirmation.level'))
+                ->greeting(str_replace(':name', $name, trans('emailconfirmation::emailconfirmation.mail_greeting')))
+                ->subject(str_replace(':name', $name, trans('emailconfirmation::emailconfirmation.mail_subject')));
+
+        foreach(trans('emailconfirmation::emailconfirmation.mail_introLines') as $line){
+            $mail->line(str_replace(':name', $name, $line));
+        }
+
+        $mail->action(str_replace(':name', $name, trans('emailconfirmation::emailconfirmation.mail_button_text')), url(config('app.url').route('confirm.attempt', $this->user->token, false)));
+
+        foreach(trans('emailconfirmation::emailconfirmation.mail_outroLines') as $line){
+            $mail->line(str_replace(':name', $name, $line));
+        }
+
+        return $mail;
     }
 
     /**

@@ -20,7 +20,7 @@ class ServiceProvider extends LaravelServiceProvider
         $this->publishes([
             $parentdir.'config/emailconfirmation.php' => config_path('emailconfirmation.php'),
         ], 'emailconfirmation-config');
-
+        $this->mergeConfigFrom($parentdir.'config/emailconfirmation.php', 'emailconfirmation');
 
         //migration runs automatically -> dont need to export or move files
         //type: php artisan migrate
@@ -51,7 +51,7 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        //TODO move it to an new artisan command
+        //TODO move it to an new artisan command ?
 
         $path = base_path('routes/').'web.php';
         $find = '// Register routes for email confirmation. The uri is "/confirm" and the route name is "confirm"'."\n".

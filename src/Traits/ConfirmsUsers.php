@@ -60,7 +60,7 @@ trait ConfirmsUsers
                     '". Please make sure you replaced "use RegistersUsers;" with "use Tebros\EmailConfirmation\Traits\RegistersUsers;" !'
                 );
             }
-            return Utils::showStatusForm('Account Confirmed', route('login'), 'Continue Login'); //TODO translate
+            return Utils::showStatusForm('Account Confirmed', route('login'), trans('emailconfirmation::emailconfirmation.button_login'));
         }
 
         return $this->showConfirmationForm();
@@ -78,7 +78,7 @@ trait ConfirmsUsers
         $user = EMailConfirmation::where('email', $request->get('email'))->first();
         if(!isset($user)){
             $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'Could not find a user for the given email!'); //TODO translate
+            $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.email_unknown'));
             return false;
         }
 
@@ -86,7 +86,7 @@ trait ConfirmsUsers
         $user->token = Utils::generateToken($user->email);
         if(!$user->save()){
             $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'An unexpected error occurred!'); //TODO translate
+            $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.unexpected_error'));
             return false;
         }
 
@@ -94,7 +94,7 @@ trait ConfirmsUsers
         $user->notify(new ConfirmEMail($user));
 
         $request->session()->flash('status_type', 'success');
-        $request->session()->flash('status', 'Confirmation E-Mail sent successfully.'); //TODO translate
+        $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.new_token_send'));
         return true;
     }
 
@@ -110,7 +110,7 @@ trait ConfirmsUsers
         //validate token
         if(empty($token)){
             $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'This is no valid link!'); //TODO translate
+            $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.invalid_link'));
             return null;
         }
 
@@ -118,7 +118,7 @@ trait ConfirmsUsers
         $user = EMailConfirmation::where('token', $token)->first();
         if(!isset($user)){
             $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'Could not find a user for the given token!'); //TODO translate
+            $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.invalid_link'));
             return null;
         }
 
@@ -126,7 +126,7 @@ trait ConfirmsUsers
         $tmp = User::where('email', $user->email)->first();
         if(isset($tmp)){
             $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'An unexpected error occurred! The user is already confirmed.'); //TODO translate
+            $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.unexpected_error'));
             return null;
         }
 
@@ -140,12 +140,12 @@ trait ConfirmsUsers
         //remove user from database
         if(!$user->forceDelete()){
             $request->session()->flash('status_type', 'danger');
-            $request->session()->flash('status', 'Your account has been confirmed but an unexpected error occurred! Please confirm your account a second time!'); //TODO translate
+            $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.confirmed_with_error'));
             return $newuser;
         }
 
         $request->session()->flash('status_type', 'success');
-        $request->session()->flash('status', 'Your account has been confirmed successfully.'); //TODO translate
+        $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.confirmed'));
         return $newuser;
     }
 

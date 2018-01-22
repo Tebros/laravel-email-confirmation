@@ -3,10 +3,13 @@
 namespace Tebros\EmailConfirmation\Traits;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers as LaravelAuthenticatesUsers;
+use Illuminate\Http\Request;
 
 trait AuthenticatesUsers
 {
-    use LaravelAuthenticatesUsers;
+    use LaravelAuthenticatesUsers {
+        validateLogin as protected laravelValidateLogin;
+    }
 
     /**
      * Validate the user login request.
@@ -19,10 +22,10 @@ trait AuthenticatesUsers
         $this->validate($request, [
             'email' => 'unique:email_confirmation,email'
         ], [
-            'unique' => 'Please confirm your email adress to login!' //TODO translate
+            'unique' => trans('emailconfirmation::emailconfirmation.account_not_confirmed')
         ]);
 
-        parent::validateLogin($request);
+        $this->laravelValidateLogin($request);
     }
 
 }

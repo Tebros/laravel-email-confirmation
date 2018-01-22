@@ -46,7 +46,7 @@ trait RegistersUsers
         Validator::make($data, [
             'email' => 'unique:email_confirmation,email'
         ], [
-            'unique' => 'The :attribute has already been taken.' //TODO translate
+            'unique' => trans('emailconfirmation::emailconfirmation.email_taken')
         ])->validate();
 
         $user = EMailConfirmation::create([
@@ -60,9 +60,9 @@ trait RegistersUsers
         $user->notify(new ConfirmEMail($user));
 
         $request->session()->flash('status_type', 'success');
-        $request->session()->flash('status', 'Confirmation E-Mail sent successfully. Please check your mails.'); //TODO translate
+        $request->session()->flash('status', trans('emailconfirmation::emailconfirmation.registered'));
 
-        return Utils::showStatusForm('Registered', route('login'), 'Continue Login'); //TODO translate
+        return Utils::showStatusForm('Registered', route('login'), trans('emailconfirmation::emailconfirmation.button_login'));
     }
 
 }
