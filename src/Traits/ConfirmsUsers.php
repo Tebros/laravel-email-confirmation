@@ -14,6 +14,7 @@ use Tebros\EmailConfirmation\Utils;
 trait ConfirmsUsers
 {
     use RedirectsUsers;
+    use ThrottlesTokenRequests;
 
     /**
      * Show the application confirmation form.
@@ -35,7 +36,17 @@ trait ConfirmsUsers
     {
         $this->validator($request->all())->validate();
 
-        $this->sendToken($request);
+        if($this->hasTooManyTokenRequests($request)){
+            $this->fireLockoutEvent($request);
+            return $this->sendLockoutResponse($request);
+        }
+
+        $success = $this->sendToken($request);
+
+        if($success){
+            $this->incrementTokenRequests($request);
+        }
+
         return back();
     }
 
@@ -60,6 +71,9 @@ trait ConfirmsUsers
                     '". Please make sure you replaced "use RegistersUsers;" with "use Tebros\EmailConfirmation\Traits\RegistersUsers;" !'
                 );
             }
+
+            $this->clearTokenRequests($request);
+
             return Utils::showStatusForm(trans('emailconfirmation::emailconfirmation.view_status_confirmed'), route('login'), trans('emailconfirmation::emailconfirmation.button_login'));
         }
 

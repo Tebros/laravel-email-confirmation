@@ -20,6 +20,9 @@ return [
     'view_request_email' => 'E-Mail Adresse',
     'view_request_submit' => 'Bestätigungslink anfordern',
 
+    // Zu viele Bestätigungslink-Anfragen von einer IP
+    'throttle' => 'Zu viele Anfragen. Bitte versuche es in :seconds Sekunden erneut.',
+
     // Überschriften für die view für Statusnachrichten
     'view_status_registered' => 'Registriert',
     'view_status_confirmed' => 'Account bestätigt',

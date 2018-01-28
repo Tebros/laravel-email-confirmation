@@ -4,6 +4,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Throttle Token Requests
+    |--------------------------------------------------------------------------
+    |
+    | If an user sends too many token requests, he will be locked.
+    |
+    | You can define the 'maxRequests'. Is the amount reached, the user will
+    | be locked for 'decayMinutes' minutes.
+    |
+    */
+
+    'maxRequests' => 2,
+    'decayMinutes' => 3,
+
+    /*
+    |--------------------------------------------------------------------------
     | E-Mail Template
     |--------------------------------------------------------------------------
     |

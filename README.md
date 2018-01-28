@@ -118,6 +118,26 @@ Run the following command to do this.
 php artisan vendor:publish --tag=emailconfirmation-views
 ```
 
+Update
+-------
+
+You can update the package by running the following command or update all of your dependencies with `composer update`.
+
+```bash
+composer update tebros/laravel-email-confirmation
+```
+
+If you want to update your published files like `config/emailconfirmation.php`, `lang/vendor/emailconfirmation` or `views/vendor/emailconfirmation`,
+you can use the following commands.
+
+**Attention!** These commands will **override** your published files. So please backup your config, views or lang files if you do not want to lose them!
+
+```bash
+php artisan vendor:publish --tag=emailconfirmation-config --force
+php artisan vendor:publish --tag=emailconfirmation-translation --force
+php artisan vendor:publish --tag=emailconfirmation-views --force
+```
+
 Uninstallation
 --------------
 
