@@ -1,4 +1,5 @@
-## Laravel E-Mail Confirmation ##
+Laravel E-Mail Confirmation
+===========================
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -8,13 +9,13 @@ This package integrates an email confirmation into the default laravel authentif
 
 It is has been developed and tested for Laravel 5.5 but it should also work with other versions of Laravel.
 
-### Installation ###
+Installation
+-------------
 
 Make use of composer to require this package. 
 
 The installation appends a function call in the `routes/web.php` file automatically. 
-Please do **not** comment it out!anpassung
-                                 editierung
+Please do **not** comment it out!
 
 ```bash
 composer require tebros/laravel-email-confirmation
@@ -68,7 +69,8 @@ Moreover, make sure your `config/app.php` file contains these important settings
 - APP_NAME
 - APP_URL
 
-### Configuration and Publishing ###
+Configuration and Publishing
+-----------------------------
 
 After the installation you can make use of the `confirm` route name to link the `Resend Confirmation E-Mail` site.
 
@@ -116,7 +118,8 @@ Run the following command to do this.
 php artisan vendor:publish --tag=emailconfirmation-views
 ```
 
-### Uninstallation ###
+Uninstallation
+--------------
 
 You should remove the following two lines in your `routes/web.php` file.
 
@@ -150,7 +153,8 @@ Now just type the following command.
 composer remove tebros/laravel-email-confirmation
 ```
 
-### License ###
+License
+-------
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
