@@ -5,7 +5,6 @@ namespace Tebros\EmailConfirmation\Traits;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 
 trait ThrottlesTokenRequests
@@ -19,7 +18,7 @@ trait ThrottlesTokenRequests
     protected function hasTooManyTokenRequests(Request $request)
     {
         return $this->limiter()->tooManyAttempts(
-            $this->throttleKey($request), $this->maxAttempts(), $this->decayMinutes()
+            $this->throttleKey($request), $this->maxRequests(), $this->decayMinutes()
         );
     }
 
@@ -50,7 +49,7 @@ trait ThrottlesTokenRequests
         );
 
         throw ValidationException::withMessages([
-            'email' => [Lang::get('emailconfirmation.throttle', ['seconds' => $seconds])],
+            'email' => [trans('emailconfirmation::emailconfirmation.throttle', ['seconds' => $seconds])],
         ])->status(423);
     }
 
